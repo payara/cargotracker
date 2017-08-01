@@ -16,7 +16,7 @@
                         <br/>
                         <h:form id="trackingForm">
                             <p:outputLabel value="Tracking ID  " />
-                            <p:autoComplete id="trackIdInput" value="#{track.trackingId}" required="true" forceSelection="true" completeMethod="#{track.completeTracking}" />
+                            <p:autoComplete id="trackIdInput" value="#{track.cargo.trackingId}" required="true" forceSelection="true" completeMethod="#{track.completeTracking}" />
                             <p:commandButton value="Track!" actionListener="#{track.onTrackById}" ajax="false"/>
                         </h:form>
                         <br/>
@@ -55,8 +55,8 @@
                     <div class="ui-grid-col-2" id="leftCol2"></div>
                     <div class="ui-grid-col-8" id="mainCol2">
                         <br/>
-                        <h:panelGroup rendered="#{not empty track.destinationCoordinates}">
-                            <p:gmap center="#{track.destinationCoordinates}" fitBounds="true" zoom="2" model="#{track.mapModel}" type="PLAN"  style="width:620px;height:360px;">
+                        <h:panelGroup rendered="#{not empty track.cargo.destinationCoordinates}">
+                            <p:gmap center="#{track.cargo.destinationCoordinates}" fitBounds="true" zoom="2" model="#{track.cargo.mapModel}" type="PLAN"  style="width:620px;height:360px;">
                                 <p:ajax event="pointSelect" listener="#{track.onPointSelect}"/> 
                             </p:gmap>
 
