@@ -15,12 +15,12 @@
                         <h:form id="trackingForm">
                             <p:outputLabel value="Tracking ID  " />
                             <p:autoComplete id="trackingId" value="#{track.trackingId}" required="true" forceSelection="true" completeMethod="#{track.getTrackingIds}" />
-                            <p:commandButton value="Track!" actionListener="#{track.onTrackById}" ajax="false"/>
+                            <p:commandButton id="trackEnthusiasm" value="Track!" actionListener="#{track.onTrackById}" ajax="false"/>
                         </h:form>
                         <br/>
-                        <h:panelGroup rendered="#{not empty track.cargo}">
+                        <h:panelGroup id="trackingData" rendered="#{not empty track.cargo}">
                             <div id="result">
-                                <p>Cargo <strong>#{track.cargo.trackingId}</strong> is currently <strong>#{track.cargo.statusText}</strong></p>
+                                <p id="currentLocation" >Cargo <strong>#{track.cargo.trackingId}</strong> is currently <strong>#{track.cargo.statusText}</strong></p>
                                 <p>Estimated time of arrival in <strong>#{track.cargo.destination}</strong>: #{track.cargo.eta}</p>
                                 <f:facet name="nextActivity" rendered="#{track.cargo.nextExpectedActivity}"><p>.#{track.cargo.nextExpectedActivity}.</p></f:facet>
                                 <h:panelGroup rendered="#{track.cargo.misdirected}">

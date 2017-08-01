@@ -25,7 +25,7 @@
                     <div class="ui-grid-col-6" id="mainCol">
 
                         <br/>
-                        <h:form>
+                        <h:form id="destinationForm" >
                             <p:outputLabel value="2. Set the destination for this new cargo coming from #{bookingBackingBean.originName}" />
                             <hr/>
                             <p:selectOneMenu id="destination" value="#{bookingBackingBean.destinationUnlocode}">
@@ -35,9 +35,9 @@
                             <hr/>   
 
                             <h:panelGrid columns="5" styleClass="registrationPanelGrid" style="margin: 0 auto;">
-                                <p:commandButton value="Back" action="booking" />
-                                <p:commandButton value="Cancel" action="/admin/dashboard" />
-                                <p:commandButton value="Next" action="booking-date" />
+                                <p:commandButton id="back" value="Back" action="booking" />
+                                <p:commandButton id="cancel" value="Cancel" action="/admin/dashboard" />
+                                <p:commandButton id="next" value="Next" action="booking-date" />
 
                             </h:panelGrid>
 
