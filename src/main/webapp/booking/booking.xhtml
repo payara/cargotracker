@@ -23,7 +23,7 @@
                     <div class="ui-grid-col-6" id="mainCol">
 
                         <br/>
-                        <h:form>
+                        <h:form id="originForm" >
                             <p:outputLabel value="1.Choose the origin of the new cargo" />
                             <hr/>
                                 <p:selectOneMenu id="origin" value="#{bookingBackingBean.originUnlocode}">
@@ -33,7 +33,8 @@
                             <hr/>
 
                             <h:panelGrid columns="2" style="margin: 0 auto;">
-                                <p:commandButton value="Cancel" action="/admin/dashboard" /><p:commandButton value="Next" action="booking-destination" />                        
+                                <p:commandButton id="cancel" value="Cancel" action="/admin/dashboard" />
+                                <p:commandButton id="next" value="Next" action="booking-destination" />                        
                             </h:panelGrid>
                         
                         </h:form>

@@ -25,16 +25,16 @@
                                 <h:outputText styleClass="titleText" value="Cargo Tracker" /><nospan style="font-size:.85em">&nbsp;- Powered by Java EE 7</nospan>
                             </a></div>
                         <div class="ui-grid-col-5 alignRight" style="padding-top: 26px;">
-                            <h:form>
-                                <h:commandLink value="Dashboard" action="/admin/dashboard.xhtml" styleClass="headerLink"/>
+                            <h:form id="navbar">
+                                <h:commandLink id="dashboard" value="Dashboard" action="/admin/dashboard.xhtml" styleClass="headerLink"/>
                                 &nbsp;&nbsp;
-                                <h:commandLink value="Book" action="booking" styleClass="headerLink" />
+                                <h:commandLink id="book" value="Book" action="booking" styleClass="headerLink" />
                                 &nbsp;&nbsp;
-                                <h:commandLink value="Track" action="/admin/track.xhtml" styleClass="headerLink" />
+                                <h:commandLink id="track" value="Track" action="/admin/track.xhtml" styleClass="headerLink" />
                                 &nbsp;&nbsp;
-                                <h:commandLink value="Live" action="/admin/map.xhtml" styleClass="headerLink" target="_blank" />
+                                <h:commandLink id="live" value="Live" action="/admin/map.xhtml" styleClass="headerLink" />
                                 &nbsp;&nbsp;
-                                <h:commandLink value="About" action="/admin/about.xhtml" styleClass="headerLink" />
+                                <h:commandLink id="about" value="About" action="/admin/about.xhtml" styleClass="headerLink" />
                             </h:form>
                         </div>
                         <div class="ui-grid-col-1"></div>
