@@ -206,6 +206,18 @@
                 </dependency>
             </dependencies>
         </profile>
+        
+        <profile>
+            <id>payara-embedded-web</id>
+            <dependencies>
+                <dependency>
+                    <groupId>fish.payara.extras</groupId>
+                    <artifactId>payara-embedded-web</artifactId>
+                    <version>${payara.version}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
 
         <!-- GlassFish specific version of build -->
         <profile>
