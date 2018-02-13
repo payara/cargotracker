@@ -210,6 +210,7 @@
         <profile>
             <id>payara-embedded</id>
             <dependencies>
+                <!-- Arquillian container and embedded server -->
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
                     <artifactId>arquillian-payara-server-4-embedded</artifactId>
@@ -222,10 +223,18 @@
                     <version>${payara.version}</version>
                     <scope>test</scope>
                 </dependency>
+
+                <!-- Provided dependencies to prevent classloading issues -->
                 <dependency>
                     <groupId>org.eclipse.persistence</groupId>
                     <artifactId>org.eclipse.persistence.moxy</artifactId>
                     <version>2.6.4</version>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>com.h2database</groupId>
+                    <artifactId>h2</artifactId>
+                    <version>1.4.195</version>
                     <scope>provided</scope>
                 </dependency>
             </dependencies>
