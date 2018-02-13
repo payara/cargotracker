@@ -111,19 +111,19 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-server</artifactId>
-            <version>3.4.0</version>
+            <version>3.9.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>htmlunit-driver</artifactId>
-            <version>2.24</version>
+            <artifactId>selenium-htmlunit-driver</artifactId>
+            <version>2.52.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>net.sourceforge.htmlunit</groupId>
             <artifactId>htmlunit</artifactId>
-            <version>2.24</version>
+            <version>2.29</version>
             <scope>test</scope>
         </dependency>
         <!-- Resolvers are needed in the Arquillian tests -->
@@ -182,9 +182,9 @@
             </activation>
             <dependencies>
                 <dependency>
-                    <groupId>org.omnifaces</groupId>
+                    <groupId>fish.payara.arquillian</groupId>
                     <artifactId>arquillian-payara-server-4-remote</artifactId>
-                    <version>1.0-beta-SNAPSHOT</version>
+                    <version>1.0.Beta2</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
