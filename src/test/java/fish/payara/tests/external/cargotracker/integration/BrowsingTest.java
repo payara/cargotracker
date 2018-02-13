@@ -53,6 +53,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.*;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.net.URL;
@@ -78,7 +79,7 @@ public class BrowsingTest {
 
     private static final Logger log = Logger.getLogger(BrowsingTest.class.getCanonicalName());
     private HtmlUnitDriver driver;
-    private WebDriverWait wait;
+    private FluentWait<WebDriver> wait;
 
     @Deployment
     public static WebArchive createDeployment() {
@@ -100,7 +101,10 @@ public class BrowsingTest {
         driver = new HtmlUnitDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.setJavascriptEnabled(true);
-        wait = new WebDriverWait(driver, 10);
+        wait = new FluentWait<WebDriver>(driver)
+            .withTimeout(4, TimeUnit.SECONDS)
+            .pollingEvery(100, TimeUnit.MILLISECONDS)
+            .ignoring(NoSuchElementException.class);
     }
 
     @After
@@ -169,11 +173,12 @@ public class BrowsingTest {
         driver.findElement(By.linkText("18")).click();
         wait.until(ExpectedConditions.elementToBeClickable(By.id("dateForm:bookBtn")));
         driver.findElement(By.id("dateForm:bookBtn")).click();
-        try {
-            Thread.sleep(4000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(BrowsingTest.class.getName()).log(Level.SEVERE, "Sleep interrupted", ex);
-        }
+        
+        // Wait for the dashboard to load.
+        wait.until((driver) -> {
+            return driver.findElement(By.id("mainDash")) != null;
+        });
+
         Assert.assertEquals("Incorrect page", "Cargo Dashboard", driver.getTitle());
     }
 
@@ -209,20 +214,28 @@ public class BrowsingTest {
         Assert.assertEquals("Incorrect page", "Cargo Tracker", driver.getTitle());
         driver.findElement(By.linkText("Public Tracking Interface")).click();
         Assert.assertEquals("Incorrect page", "Track Cargo", driver.getTitle());
-        // At time of writing, this was a default entry into the cargo tracker
-        driver.findElement(By.id("trackingForm:trackingId_input")).sendKeys("ABC123");
+        // Type 'AB' into search box
+        driver.findElement(By.id("trackingForm:trackingId_input")).sendKeys("AB");
+
+        // Click first suggestion
         driver.findElement(By.xpath("//div[@id='trackingForm:trackingId_panel']/ul/li")).click();
-        Assert.assertEquals("Text not entered", "ABC123", driver.findElement(By.id("trackingForm:trackingId_input"))
-                .getAttribute("value"));
+
+        // Check the field value isn't empty
+        Assert.assertFalse("Text not entered",
+                driver.findElement(By.id("trackingForm:trackingId_input")).getAttribute("value").isEmpty());
+
+        // Check the submit button exists, and click it if it does.
         Assert.assertTrue("Track! button not present",
                 driver.findElement(By.id("trackingForm:trackEnthusiasm")) != null);
         driver.findElement(By.id("trackingForm:trackingId_input")).submit();
-        try {
-            Thread.sleep(4000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(BrowsingTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Assert.assertEquals("Wrong cargo", "Cargo ABC123 is currently In port New York",
-                driver.findElement(By.id("currentLocation")).getText());
+        
+        // Wait for the page to load.
+        wait.until((driver) -> {
+            return driver.findElement(By.id("trackingData")) != null;
+        });
+
+        // Check a valid cargo was found
+        Assert.assertTrue("Wrong cargo", driver.findElement(By.id("currentLocation")).getText()
+                .matches("Cargo \\w+ is currently .+"));
     }
 }
