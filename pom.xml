@@ -111,19 +111,19 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-server</artifactId>
-            <version>3.4.0</version>
+            <version>3.9.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>htmlunit-driver</artifactId>
-            <version>2.24</version>
+            <artifactId>selenium-htmlunit-driver</artifactId>
+            <version>2.52.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>net.sourceforge.htmlunit</groupId>
             <artifactId>htmlunit</artifactId>
-            <version>2.24</version>
+            <version>2.29</version>
             <scope>test</scope>
         </dependency>
         <!-- Resolvers are needed in the Arquillian tests -->
@@ -143,8 +143,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.6.1</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                     <compilerArguments>
                         <endorseddirs>${endorsed.dir}</endorseddirs>
                     </compilerArguments>
@@ -153,7 +153,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.2.0</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
@@ -161,12 +161,13 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.20</version>
+                <version>2.20.1</version>
                 <configuration>
+                    <!-- Pass the maven properties to system properties (for the web.xml) -->
                     <systemPropertyVariables>
-                        <!-- This is needed to tell the unit tests which profile
-                        we are running. -->
-                        <profileId>${project.activeProfiles[0].id}</profileId>
+                        <webapp.graphTraversalUrl>${webapp.graphTraversalUrl}</webapp.graphTraversalUrl>
+                        <!-- Redirect derby log to target folder -->
+                        <derby.stream.error.file>target/derby.log</derby.stream.error.file>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
@@ -182,9 +183,9 @@
             </activation>
             <dependencies>
                 <dependency>
-                    <groupId>org.omnifaces</groupId>
+                    <groupId>fish.payara.arquillian</groupId>
                     <artifactId>arquillian-payara-server-4-remote</artifactId>
-                    <version>1.0-beta-SNAPSHOT</version>
+                    <version>1.0.Beta2</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -209,107 +210,74 @@
 
         <profile>
             <id>payara-embedded</id>
+            <properties>
+                <webapp.graphTraversalUrl>http://localhost:8181/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
+            </properties>
             <dependencies>
+                <!-- Arquillian container and embedded server -->
+                <dependency>
+                    <groupId>fish.payara.arquillian</groupId>
+                    <artifactId>arquillian-payara-server-4-embedded</artifactId>
+                    <version>1.0.Beta2</version>
+                    <scope>test</scope>
+                </dependency>
                 <dependency>
                     <groupId>fish.payara.extras</groupId>
                     <artifactId>payara-embedded-all</artifactId>
                     <version>${payara.version}</version>
                     <scope>test</scope>
                 </dependency>
+
+                <!-- Provided dependencies to prevent classloading issues -->
+                <dependency>
+                    <groupId>org.eclipse.persistence</groupId>
+                    <artifactId>org.eclipse.persistence.moxy</artifactId>
+                    <version>2.6.4</version>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>com.h2database</groupId>
+                    <artifactId>h2</artifactId>
+                    <version>1.4.195</version>
+                    <scope>provided</scope>
+                </dependency>
             </dependencies>
         </profile>
         
         <profile>
             <id>payara-embedded-web</id>
+            <properties>
+                <webapp.graphTraversalUrl>http://localhost:8181/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
+            </properties>
             <dependencies>
+                <!-- Arquillian container and embedded server -->
+                <dependency>
+                    <groupId>fish.payara.arquillian</groupId>
+                    <artifactId>arquillian-payara-server-4-embedded</artifactId>
+                    <version>1.0.Beta2</version>
+                    <scope>test</scope>
+                </dependency>
                 <dependency>
                     <groupId>fish.payara.extras</groupId>
                     <artifactId>payara-embedded-web</artifactId>
                     <version>${payara.version}</version>
                     <scope>test</scope>
                 </dependency>
-            </dependencies>
-        </profile>
 
-        <!-- GlassFish specific version of build -->
-        <profile>
-            <id>glassfish</id>
-            <dependencies>
+                <!-- Provided dependencies to prevent classloading issues -->
                 <dependency>
-                    <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-glassfish-remote-3.1</artifactId>
-                    <version>1.0.0.CR4</version>
-                    <scope>test</scope>
+                    <groupId>org.eclipse.persistence</groupId>
+                    <artifactId>org.eclipse.persistence.moxy</artifactId>
+                    <version>2.6.4</version>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>com.h2database</groupId>
+                    <artifactId>h2</artifactId>
+                    <version>1.4.195</version>
+                    <scope>provided</scope>
                 </dependency>
             </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.cargo</groupId>
-                        <artifactId>cargo-maven2-plugin</artifactId>
-                        <version>1.4.14</version>
-                        <configuration>
-                            <container>
-                                <containerId>glassfish4x</containerId>
-                                <zipUrlInstaller>
-                                    <url>http://download.java.net/glassfish/4.1/release/glassfish-4.1.zip</url>
-                                </zipUrlInstaller>
-                            </container>
-                            <properties>
-                                <context>cargo-tracker</context>
-                            </properties>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <!-- WebLogic Profile -->
-        <profile>
-            <id>weblogic</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <webapp.graphTraversalUrl>http://localhost:7001/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-wls-remote-12.1.2</artifactId>
-                    <version>1.0.0.Alpha3</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-war-plugin</artifactId>
-                        <version>2.6</version>
-                        <configuration>
-                            <failOnMissingWebXml>false</failOnMissingWebXml>
-                            <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
-                            <webXml>${basedir}/src/weblogic/webapp/WEB-INF/web.xml</webXml>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>2.18.1</version>
-                        <configuration>
-                            <skipTests>true</skipTests>
-                            <systemPropertyVariables>
-                                <!-- This is needed to tell the unit tests which profile
-                                we are running. -->
-                                <profileId>${project.activeProfiles[0].id}</profileId>
-                                <!-- This is needed to tell Arquillian which profile
-                                we are running. -->
-                                <arquillian.launch>${project.activeProfiles[0].id}</arquillian.launch>
-                            </systemPropertyVariables>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
     </profiles>
 </project>

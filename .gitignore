@@ -1,1 +1,14 @@
+# Maven output
 target/
+
+# Project related files
+.project
+.classpath
+.settings
+
+# NetBeans
+nbactions.xml
+nb-*.xml
+
+# VSCode
+.vscode/
