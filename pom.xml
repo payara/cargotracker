@@ -166,6 +166,8 @@
                     <!-- Pass the maven properties to system properties (for the web.xml) -->
                     <systemPropertyVariables>
                         <webapp.graphTraversalUrl>${webapp.graphTraversalUrl}</webapp.graphTraversalUrl>
+                        <!-- Redirect derby log to target folder -->
+                        <derby.stream.error.file>target/derby.log</derby.stream.error.file>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
