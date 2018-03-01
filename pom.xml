@@ -321,25 +321,7 @@
         </profile>
 
         <profile>
-            <id>payara-5</id>
-            <activation>
-                <property>
-                    <name>!payara4</name>
-                </property>
-            </activation>
-            <properties>
-                <jersey.version>2.26</jersey.version>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>payara-4</id>
-            <activation>
-                <property>
-                    <name>payara4</name>
-                    <value>true</value>
-                </property>
-            </activation>
+            <id>payara4</id>
             <properties>
                 <jersey.version>2.25.1</jersey.version>
             </properties>
