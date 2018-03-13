@@ -14,8 +14,8 @@
     <properties>
         <!-- Maven Dependencies -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
         <maven.surefire.version>2.20.1</maven.surefire.version>
         <maven.compiler-plugin.version>3.7.0</maven.compiler-plugin.version>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
@@ -44,9 +44,6 @@
         <moxy.version>2.7.1</moxy.version>
         <h2.version>1.4.196</h2.version>
 
-        <!-- Test Properties -->
-        <webapp.databaseTempDir>/tmp</webapp.databaseTempDir>
-        <webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
     </properties>
 
     <!-- We need to use the PrimeFaces repository -->
@@ -148,24 +145,6 @@
             <artifactId>arquillian-junit-container</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-server</artifactId>
-            <version>${selenium.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-htmlunit-driver</artifactId>
-            <version>${selenium.htmlunit-driver.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.sourceforge.htmlunit</groupId>
-            <artifactId>htmlunit</artifactId>
-            <version>${htmlunit.version}</version>
-            <scope>test</scope>
-        </dependency>
         <!-- Resolvers are needed in the Arquillian tests -->
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
@@ -199,18 +178,6 @@
                     <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
                 </configuration>
             </plugin>
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven.surefire.version}</version>
-                <configuration>
-                    <!-- Pass the maven properties to system properties (for the web.xml) -->
-                    <systemPropertyVariables>
-                        <webapp.graphTraversalUrl>${webapp.graphTraversalUrl}</webapp.graphTraversalUrl>
-                        <!-- Redirect derby log to target folder -->
-                        <derby.stream.error.file>target/derby.log</derby.stream.error.file>
-                    </systemPropertyVariables>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 
@@ -221,6 +188,7 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+                        
             <dependencies>
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
@@ -250,9 +218,6 @@
 
         <profile>
             <id>payara-embedded</id>
-            <properties>
-                <webapp.graphTraversalUrl>http://localhost:8181/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
-            </properties>
             <dependencies>
                 <!-- Arquillian container and embedded server -->
                 <dependency>
@@ -276,12 +241,6 @@
                     <scope>provided</scope>
                 </dependency>
                 <dependency>
-                    <groupId>com.h2database</groupId>
-                    <artifactId>h2</artifactId>
-                    <version>${h2.version}</version>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
                     <groupId>org.glassfish.jersey.core</groupId>
                     <artifactId>jersey-common</artifactId>
                     <version>${jersey.version}</version>
@@ -295,10 +254,9 @@
             <properties>
                 <jersey.version>2.25.1</jersey.version>
                 <payara.arquillian.container.version>1.0.Beta2</payara.arquillian.container.version>
-                <maven.compiler.source>1.7</maven.compiler.source>
-                <maven.compiler.target>1.7</maven.compiler.target>
-                <java.ee.version>8.0</java.ee.version>
+                <java.ee.version>7.0</java.ee.version>
             </properties>
         </profile>
     </profiles>
+    
 </project>
