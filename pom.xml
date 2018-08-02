@@ -178,6 +178,18 @@
                     <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.20.1</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>javax.annotation</groupId>
+                        <artifactId>javax.annotation-api</artifactId>
+                        <version>1.3.1</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
         </plugins>
     </build>
 
@@ -255,6 +267,7 @@
 				<dependency>
 					<groupId>fish.payara.arquillian</groupId>
 					<artifactId>payara-client-ee8</artifactId>
+                    <version>1.0.Beta3-m1</version>
 				</dependency>
 		
 				<!-- The actual Arquillian connector -->
