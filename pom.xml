@@ -332,6 +332,7 @@
             <id>payara4</id>
             <activation>
                 <property>
+                    <!-- this will only activate on system property ( mvn clean test .... -Dpayara.version= ), not the pom property above -->
                     <name>payara.version.major</name>
                     <value>4</value>
                 </property>
@@ -347,6 +348,7 @@
             <id>payara5</id>
             <activation>
                 <property>
+                    <!-- this will only activate on system property ( mvn clean test .... -Dpayara.version= ), not the pom property above -->
                     <name>payara.version.major</name>
                     <value>5</value>
                 </property>
