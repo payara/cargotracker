@@ -23,7 +23,7 @@
 
         <!-- Arquillian Dependencies -->
         <arquillian.version>1.1.14.Final</arquillian.version>
-        <payara.arquillian.container.version>1.0.Beta3-m3</payara.arquillian.container.version>
+        <payara.arquillian.container.version>1.0.Beta3</payara.arquillian.container.version>
 
         <!-- Primefaces Dependencies -->
         <primefaces.version>6.1</primefaces.version>
