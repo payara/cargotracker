@@ -45,7 +45,7 @@
         <h2.version>1.4.196</h2.version>
         <payara.version>5.182</payara.version>
         <payara.version.major>5</payara.version.major>
-
+        <payara.directory.name>payara5</payara.directory.name>
     </properties>
 
     <!-- We need to use the PrimeFaces repository -->
