@@ -366,27 +366,6 @@
             </build>
 	    </profile>
 
-        <profile>
-            <id>jdk8</id>
-            <activation>
-                <jdk>1.8</jdk>
-            </activation>
-            <properties>
-                <payara.arquillian.container.version>1.0.Beta3-m3</payara.arquillian.container.version>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>jdk7</id>
-            <activation>
-                <jdk>1.7</jdk>
-            </activation>
-
-            <properties>
-                <payara.arquillian.container.version>1.0.Beta3-m2</payara.arquillian.container.version>
-            </properties>
-        </profile>
-
     </profiles>
 
 </project>
