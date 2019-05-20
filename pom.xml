@@ -39,7 +39,7 @@
         <!-- Embedded Dependencies -->
         <json.version>1.1.2</json.version>
         <tyrus.version>1.13.1</tyrus.version>
-        <jersey.version>2.27.payara-p11</jersey.version>
+        <jersey.version>2.29.payara-p2</jersey.version>
         <moxy.version>2.7.1</moxy.version>
         <h2.version>1.4.196</h2.version>
         <payara.version>4.1.2.181</payara.version>
