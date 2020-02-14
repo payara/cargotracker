@@ -160,7 +160,7 @@ you might run into the following issues:
 * You will see some spurious JSF warnings on some pages due to a GlassFish 
   4/Mojarra bug (https://java.net/jira/browse/GLASSFISH-20244). The error is 
   harmless and can be ignored.
-* Sometimes when GlassFish is not shutdown correctly, the Derby database that 
+* Sometimes when GlassFish is not shutdown correctly, the H2 database that 
   the application uses get's corrupted, resulting is strange JDBC errors. If 
   this occurs, you will need to stop the application and clean the database. You 
   can do this by simply removing \temp\cargo-tracker-database from the file 
