@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -57,10 +59,17 @@ public class BookingServiceTest {
 
     @Deployment
     public static WebArchive createDeployment() {
+        String payaraVersion = System.getProperty("payara.version.major");
+        String webXml = "webPayara5.xml";
+
+        if (payaraVersion != null && payaraVersion.equals("4")) {
+            webXml = "webPayara4.xml";
+        }
+        
         WebArchive war = ShrinkWrap.create(MavenImporter.class)
                 .loadPomFromFile("pom.xml").importBuildOutput()
-                .as(WebArchive.class);
-
+                .as(WebArchive.class).setWebXML(new File("src/test/resources/" + webXml));
+        
         return war;
     }
 

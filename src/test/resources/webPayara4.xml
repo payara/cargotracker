@@ -50,8 +50,8 @@
     faster. -->
     <data-source>
         <name>java:app/jdbc/CargoTrackerDatabase</name>
-        <class-name>${data.source.class-name}</class-name>
-        <url>${data.source.url}</url>
+        <class-name>org.apache.derby.jdbc.EmbeddedDriver</class-name>
+        <url>jdbc:derby:/tmp/cargo-tracker-database;create=true</url>
     </data-source>
     <jms-destination>
         <name>java:app/jms/CargoHandledQueue</name>
