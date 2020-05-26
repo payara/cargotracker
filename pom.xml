@@ -365,44 +365,37 @@
                 </plugins>
             </build>
         </profile>
+
         <profile>
-            <id>payara4</id>
+            <id>Payara Community</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <property>
+                    <name>payara.version</name>
+                    <value>/^[5-9]\.[0-9]{4}(-SNAPSHOT|\..*)*/</value>
+                </property>
             </activation>
             <dependencies>
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>payara-client-ee7</artifactId>
+                    <artifactId>payara-client-ee8</artifactId>
                     <version>${payara.arquillian.container.version}</version>
                 </dependency>
             </dependencies>
             <properties>
-                <data.source.class-name>org.apache.derby.jdbc.EmbeddedDriver</data.source.class-name>
-                <data.source.url>jdbc:derby:/tmp/cargo-tracker-database;create=true</data.source.url>
-                <jersey.version>2.25.1</jersey.version>
-                <java.ee.version>7.0</java.ee.version>
-                <payara.version.major>4</payara.version.major>
-                <payara.directory.name>payara41</payara.directory.name>
-                <payara.arquillian.container.version>1.4</payara.arquillian.container.version>
+                <payara.directory.name>payara5</payara.directory.name>
+                <payara.version.major>5</payara.version.major>
+                <payara.arquillian.container.version>2.2</payara.arquillian.container.version>
             </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <systemPropertyVariables>
-                                <payara.version.major>4</payara.version.major>
-                            </systemPropertyVariables>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
 
         <profile>
-            <id>payara5</id>
+            <id>Payara Enterprise</id>
+            <activation>
+                <property>
+                    <name>payara.version</name>
+                    <value>/^[5-9]\.[0-9]{2}\.[0-9]{1,2}(-SNAPSHOT)*/</value>
+                </property>
+            </activation>
             <dependencies>
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
