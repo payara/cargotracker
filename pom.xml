@@ -23,7 +23,7 @@
 
         <!-- Arquillian Dependencies -->
         <arquillian.version>1.1.14.Final</arquillian.version>
-        <payara.arquillian.container.version>2.3</payara.arquillian.container.version>
+        <payara.arquillian.container.version>2.2</payara.arquillian.container.version>
 
         <!-- Primefaces Dependencies -->
         <primefaces.version>6.1</primefaces.version>
@@ -43,8 +43,8 @@
         <moxy.version>2.7.1</moxy.version>
         <h2.version>1.4.196</h2.version>
         <payara.version>4.1.2.181</payara.version>
-        <data.source.class-name>org.h2.Driver</data.source.class-name>
-        <data.source.url>jdbc:h2:./tmp/cargo-tracker-database;AUTO_SERVER=TRUE</data.source.url>
+        <data.source.class-name>org.h2.Driver</data.source.class-name> 
+        <data.source.url>jdbc:h2:./tmp/cargo-tracker-database;AUTO_SERVER=TRUE</data.source.url>      
     </properties>
 
     <!-- We need to use the PrimeFaces repository -->
@@ -384,6 +384,7 @@
             <properties>
                 <payara.directory.name>payara5</payara.directory.name>
                 <payara.version.major>5</payara.version.major>
+                <payara.arquillian.container.version>2.2</payara.arquillian.container.version>
             </properties>
         </profile>
 
@@ -405,6 +406,7 @@
             <properties>
                 <payara.directory.name>payara5</payara.directory.name>
                 <payara.version.major>5</payara.version.major>
+                <payara.arquillian.container.version>2.2</payara.arquillian.container.version>
             </properties>
         </profile>
 
