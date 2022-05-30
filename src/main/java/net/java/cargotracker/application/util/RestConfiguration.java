@@ -1,6 +1,6 @@
 package net.java.cargotracker.application.util;
 
-import javax.ws.rs.ApplicationPath;
+import jakarta.ws.rs.ApplicationPath;
 import net.java.cargotracker.interfaces.booking.rest.CargoMonitoringService;
 import net.java.cargotracker.interfaces.handling.rest.HandlingReportService;
 import net.java.pathfinder.api.GraphTraversalService;

@@ -2,8 +2,8 @@ package net.java.cargotracker.application.internal;
 
 import java.util.Date;
 import java.util.logging.Logger;
-import javax.ejb.Stateless;
-import javax.inject.Inject;
+import jakarta.ejb.Stateless;
+import jakarta.inject.Inject;
 import net.java.cargotracker.application.ApplicationEvents;
 import net.java.cargotracker.application.HandlingEventService;
 import net.java.cargotracker.domain.model.cargo.TrackingId;

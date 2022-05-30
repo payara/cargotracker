@@ -1,6 +1,6 @@
 package net.java.cargotracker.domain.model.handling;
 
-import javax.ejb.ApplicationException;
+import jakarta.ejb.ApplicationException;
 
 /**
  * If a {@link net.java.cargotracker.domain.model.handling.HandlingEvent} can't

@@ -2,8 +2,8 @@ package net.java.cargotracker.domain.model.handling;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import net.java.cargotracker.domain.model.cargo.Cargo;
 import net.java.cargotracker.domain.model.cargo.CargoRepository;
 import net.java.cargotracker.domain.model.cargo.TrackingId;

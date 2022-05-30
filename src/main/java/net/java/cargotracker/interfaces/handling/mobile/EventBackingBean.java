@@ -4,13 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.faces.flow.FlowScoped;
-import javax.faces.model.SelectItem;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.flow.FlowScoped;
+import jakarta.faces.model.SelectItem;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import net.java.cargotracker.application.ApplicationEvents;
 import net.java.cargotracker.domain.model.cargo.TrackingId;
 import net.java.cargotracker.domain.model.handling.HandlingEvent;
@@ -22,7 +22,7 @@ import net.java.cargotracker.interfaces.booking.facade.BookingServiceFacade;
 import net.java.cargotracker.interfaces.booking.facade.dto.CargoRoute;
 import net.java.cargotracker.interfaces.booking.web.CargoDetails;
 import net.java.cargotracker.interfaces.handling.HandlingEventRegistrationAttempt;
-import org.primefaces.context.RequestContext;
+import org.primefaces.PrimeFaces;
 
 /**
  *
@@ -186,14 +186,14 @@ public class EventBackingBean implements Serializable {
                 loadEventCondition = true;
             }
             voyageSelectable = true;
-            RequestContext.getCurrentInstance().update("firstForm:panelVoyage");
+            PrimeFaces.current().ajax().update("firstForm:panelVoyage");
         } else {
             this.voyageNumber = null;
             loadEventCondition = true;
             voyageSelectable = false;
         }
         checkConditions();
-        //RequestContext.getCurrentInstance().update("firstForm:panelVoyage,:firstScreen:nextBtn");
+        //PrimeFaces.current().ajax().update("firstForm:panelVoyage,:firstScreen:nextBtn");
     }
 
     public void checkConditions() {
@@ -201,7 +201,7 @@ public class EventBackingBean implements Serializable {
         if (trackId != null && eventType != null && location != null && (eventType != null && loadEventCondition)) {
             // All condition are Ok, Next screen button can be enable
             inputsOk = true;
-            RequestContext.getCurrentInstance().update("firstForm:panelVoyage,:firstScreen:nextBtn");
+            PrimeFaces.current().ajax().update("firstForm:panelVoyage,:firstScreen:nextBtn");
 
         } else {
             // All conditions are not OK!
@@ -210,7 +210,7 @@ public class EventBackingBean implements Serializable {
     }
 
     public void updateVoyage() {
-        //RequestContext.getCurrentInstance().update("eventForm:voyage");
+        //PrimeFaces.current().ajax().update("eventForm:voyage");
         checkConditions();
     }
 

@@ -1,10 +1,10 @@
 package net.java.cargotracker.interfaces.booking.web;
 
 import java.util.*;
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import net.java.cargotracker.interfaces.booking.facade.BookingServiceFacade;
 import net.java.cargotracker.interfaces.booking.facade.dto.CargoRoute;
 import net.java.cargotracker.interfaces.booking.facade.dto.Leg;

@@ -1,7 +1,7 @@
 package net.java.cargotracker.application;
 
 import net.java.cargotracker.application.util.*;
-import javax.ws.rs.ApplicationPath;
+import jakarta.ws.rs.ApplicationPath;
 import net.java.pathfinder.api.GraphTraversalService;
 import org.glassfish.jersey.moxy.json.MoxyJsonFeature;
 import org.glassfish.jersey.server.ResourceConfig;

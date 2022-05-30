@@ -6,7 +6,7 @@
 
     <!-- Overriding system level defaults is a decent usage of XML -->
     <context-param>
-        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-name>jakarta.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
 
@@ -23,7 +23,7 @@
 
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
-        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
@@ -55,31 +55,31 @@
     </data-source>
     <jms-destination>
         <name>java:app/jms/CargoHandledQueue</name>
-        <interface-name>javax.jms.Queue</interface-name>
+        <interface-name>jakarta.jms.Queue</interface-name>
         <resource-adapter>jmsra</resource-adapter>
         <destination-name>CargoHandledQueue</destination-name>
     </jms-destination>
     <jms-destination>
         <name>java:app/jms/MisdirectedCargoQueue</name>
-        <interface-name>javax.jms.Queue</interface-name>
+        <interface-name>jakarta.jms.Queue</interface-name>
         <resource-adapter>jmsra</resource-adapter>
         <destination-name>MisdirectedCargoQueue</destination-name>
     </jms-destination>
     <jms-destination>
         <name>java:app/jms/DeliveredCargoQueue</name>
-        <interface-name>javax.jms.Queue</interface-name>
+        <interface-name>jakarta.jms.Queue</interface-name>
         <resource-adapter>jmsra</resource-adapter>
         <destination-name>DeliveredCargoQueue</destination-name>
     </jms-destination>
     <jms-destination>
         <name>java:app/jms/RejectedRegistrationAttemptsQueue</name>
-        <interface-name>javax.jms.Queue</interface-name>
+        <interface-name>jakarta.jms.Queue</interface-name>
         <resource-adapter>jmsra</resource-adapter>
         <destination-name>RejectedRegistrationAttemptsQueue</destination-name>
     </jms-destination>
     <jms-destination>
         <name>java:app/jms/HandlingEventRegistrationAttemptQueue</name>
-        <interface-name>javax.jms.Queue</interface-name>
+        <interface-name>jakarta.jms.Queue</interface-name>
         <resource-adapter>jmsra</resource-adapter>
         <destination-name>HandlingEventRegistrationAttemptQueue</destination-name>
     </jms-destination>

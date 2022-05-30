@@ -1,13 +1,13 @@
 package net.java.cargotracker.interfaces.handling.mobile;
 
-//import javax.faces.bean.SessionScoped;
+//import jakarta.faces.bean.SessionScoped;
 import java.io.Serializable;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.context.FacesContext;
-import javax.faces.flow.FlowHandler;
-import javax.inject.Named;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.flow.FlowHandler;
+import jakarta.inject.Named;
 
 /**
  *

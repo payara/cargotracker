@@ -1,6 +1,6 @@
 package net.java.cargotracker.application;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import net.java.cargotracker.domain.model.cargo.TrackingId;
 
 public interface CargoInspectionService {

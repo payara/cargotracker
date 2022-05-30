@@ -14,19 +14,18 @@
     <properties>
         <!-- Maven Dependencies -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <maven.surefire.version>2.22.0</maven.surefire.version>
         <maven.compiler-plugin.version>3.7.0</maven.compiler-plugin.version>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <maven.war-plugin.version>3.2.0</maven.war-plugin.version>
 
         <!-- Arquillian Dependencies -->
-        <arquillian.version>1.1.14.Final</arquillian.version>
-        <payara.arquillian.container.version>2.2</payara.arquillian.container.version>
+        <arquillian.version>1.7.0.Alpha10</arquillian.version>
 
         <!-- Primefaces Dependencies -->
-        <primefaces.version>6.1</primefaces.version>
+        <primefaces.version>11.0.0</primefaces.version>
         <primefaces.theme.version>1.0.10</primefaces.theme.version>
 
         <!-- Test Dependencies -->
@@ -35,46 +34,48 @@
         <selenium.htmlunit-driver.version>2.52.0</selenium.htmlunit-driver.version>
         <htmlunit.version>2.29</htmlunit.version>
         <cargo.version>1.6.7</cargo.version>
-        <java.ee.version>8.0</java.ee.version>
+        <java.ee.version>9.1.0</java.ee.version>
 
         <!-- Embedded Dependencies -->
         <json.version>1.1.2</json.version>
         <jersey.version>2.29.payara-p2</jersey.version>
         <moxy.version>2.7.1</moxy.version>
         <h2.version>1.4.196</h2.version>
-        <payara.version>4.1.2.181</payara.version>
+        <payara.version>6.2022.1.Alpha3-SNAPSHOT</payara.version>
         <data.source.class-name>org.h2.Driver</data.source.class-name> 
         <data.source.url>jdbc:h2:./tmp/cargo-tracker-database;AUTO_SERVER=TRUE</data.source.url>      
     </properties>
 
-    <!-- We need to use the PrimeFaces repository -->
     <repositories>
         <repository>
+            <id>payara-artifacts</id>
+            <name>Payara Artifacts</name>
+            <url>https://nexus.payara.fish/repository/payara-artifacts/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+
+
+        <!-- Temporal for Jakarta EE 10 development until the jar files are available on maven central -->
+        <repository>
+            <id>staged-jakarta-releases</id>
+            <url>https://jakarta.oss.sonatype.org/content/groups/staging/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+
+        <!-- PF themes are in their repo -->
+        <repository>
             <id>primefaces</id>
-            <url>http://repository.primefaces.org</url>
-        </repository>
-        <repository>
-            <id>ossrh</id>
-            <name>Sonatype-snapshot</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>payara-patches</id>
-            <name>Payara Patches</name>
-            <url>https://raw.github.com/payara/Payara_PatchedProjects/master</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
+            <url>https://repository.primefaces.org</url>
         </repository>
     </repositories>
 
@@ -88,15 +89,21 @@
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
+            <dependency>
+                <groupId>fish.payara.api</groupId>
+                <artifactId>payara-bom</artifactId>
+                <version>${payara.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
         <!-- Java EE API -->
         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>${java.ee.version}</version>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
             <scope>provided</scope>
         </dependency>
 
@@ -104,13 +111,11 @@
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-servlet-core</artifactId>
-            <version>${jersey.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-moxy</artifactId>
-            <version>${jersey.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -127,6 +132,7 @@
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
             <version>${primefaces.version}</version>
+            <classifier>jakarta</classifier>
         </dependency>
         <dependency>
             <groupId>org.primefaces.themes</groupId>
@@ -243,7 +249,6 @@
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
                     <artifactId>arquillian-payara-server-remote</artifactId>
-                    <version>${payara.arquillian.container.version}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -273,13 +278,11 @@
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
                     <artifactId>arquillian-payara-server-embedded</artifactId>
-                    <version>${payara.arquillian.container.version}</version>
                     <scope>test</scope>
                 </dependency>
                 <dependency>
                     <groupId>fish.payara.extras</groupId>
                     <artifactId>payara-embedded-all</artifactId>
-                    <version>${payara.version}</version>
                     <scope>test</scope>
                 </dependency>
 
@@ -287,13 +290,11 @@
                 <dependency>
                     <groupId>org.eclipse.persistence</groupId>
                     <artifactId>org.eclipse.persistence.moxy</artifactId>
-                    <version>${moxy.version}</version>
                     <scope>provided</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.glassfish.jersey.core</groupId>
                     <artifactId>jersey-common</artifactId>
-                    <version>${jersey.version}</version>
                     <scope>provided</scope>
                 </dependency>
             </dependencies>
@@ -307,7 +308,6 @@
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
                     <artifactId>arquillian-payara-server-managed</artifactId>
-                    <version>${payara.arquillian.container.version}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
