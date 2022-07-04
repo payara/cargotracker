@@ -23,6 +23,7 @@
 
         <!-- Arquillian Dependencies -->
         <arquillian.version>1.7.0.Alpha10</arquillian.version>
+        <payara.arquillian.version>3.0.alpha6</payara.arquillian.version>
 
         <!-- Primefaces Dependencies -->
         <primefaces.version>11.0.0</primefaces.version>
@@ -250,6 +251,7 @@
                     <groupId>fish.payara.arquillian</groupId>
                     <artifactId>arquillian-payara-server-remote</artifactId>
                     <scope>test</scope>
+                    <version>${payara.arquillian.version}</version>
                 </dependency>
             </dependencies>
             <build>
@@ -279,11 +281,13 @@
                     <groupId>fish.payara.arquillian</groupId>
                     <artifactId>arquillian-payara-server-embedded</artifactId>
                     <scope>test</scope>
+                    <version>${payara.arquillian.version}</version>
                 </dependency>
                 <dependency>
                     <groupId>fish.payara.extras</groupId>
                     <artifactId>payara-embedded-all</artifactId>
                     <scope>test</scope>
+                    <version>${payara.arquillian.version}</version>
                 </dependency>
 
                 <!-- Provided dependencies to prevent classloading issues -->
@@ -309,6 +313,7 @@
                     <groupId>fish.payara.arquillian</groupId>
                     <artifactId>arquillian-payara-server-managed</artifactId>
                     <scope>test</scope>
+                    <version>${payara.arquillian.version}</version>
                 </dependency>
             </dependencies>
 
@@ -377,14 +382,13 @@
             <dependencies>
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>payara-client-ee8</artifactId>
-                    <version>${payara.arquillian.container.version}</version>
+                    <artifactId>payara-client-ee9</artifactId>
+                    <version>${payara.arquillian.version}</version>
                 </dependency>
             </dependencies>
             <properties>
-                <payara.directory.name>payara5</payara.directory.name>
-                <payara.version.major>5</payara.version.major>
-                <payara.arquillian.container.version>2.2</payara.arquillian.container.version>
+                <payara.directory.name>payara6</payara.directory.name>
+                <payara.version.major>6</payara.version.major>
             </properties>
         </profile>
 
@@ -399,14 +403,13 @@
             <dependencies>
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>payara-client-ee8</artifactId>
-                    <version>${payara.arquillian.container.version}</version>
+                    <artifactId>payara-client-ee9</artifactId>
+                    <version>${payara.arquillian.version}</version>
                 </dependency>
             </dependencies>
             <properties>
-                <payara.directory.name>payara5</payara.directory.name>
-                <payara.version.major>5</payara.version.major>
-                <payara.arquillian.container.version>2.2</payara.arquillian.container.version>
+                <payara.directory.name>payara6</payara.directory.name>
+                <payara.version.major>6</payara.version.major>
             </properties>
         </profile>
 
