@@ -41,7 +41,7 @@
         <json.version>1.1.2</json.version>
         <moxy.version>2.7.1</moxy.version>
         <h2.version>1.4.196</h2.version>
-        <payara.version>6.2022.1.Alpha4-SNAPSHOT</payara.version>
+        <payara.version>6.2022.1.Alpha5-SNAPSHOT</payara.version>
         <data.source.class-name>org.h2.Driver</data.source.class-name> 
         <data.source.url>jdbc:h2:./tmp/cargo-tracker-database;AUTO_SERVER=TRUE</data.source.url>      
     </properties>
