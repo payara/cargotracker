@@ -1,3 +1,12 @@
+MPLPostStep('always') {
+    cleanWs()
+}
+
+MPLPostStep('failure') {
+    echo "There are test failures, archiving server log"
+    archiveArtifacts artifacts: "./${${getPayaraDirectoryName}}/glassfish/domains/${getDomainName()}/logs/server.log"
+}
+
 withMaven(jdk: CFG.jdk, options: [artifactsPublisher(disabled: true)]) {
     sh "rm -rf /tmp/cargo*"
     
