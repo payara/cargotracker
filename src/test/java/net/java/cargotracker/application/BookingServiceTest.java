@@ -60,12 +60,14 @@ public class BookingServiceTest {
     @Deployment
     public static WebArchive createDeployment() {
         String payaraVersion = System.getProperty("payara.version.major");
-        String webXml = "webPayara6.xml";
+        String webXml = "webPayara7.xml";
 
         if (payaraVersion != null && payaraVersion.equals("4")) {
             webXml = "webPayara4.xml";
         } else if (payaraVersion != null && payaraVersion.equals("5")) {
             webXml = "webPayara5.xml";
+        } else if (payaraVersion != null && payaraVersion.equals("6")) {
+            webXml = "webPayara6.xml";
         }
 
         WebArchive war = ShrinkWrap.create(MavenImporter.class)
