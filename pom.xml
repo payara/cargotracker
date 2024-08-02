@@ -136,7 +136,7 @@
         </dependency>
         <dependency>
             <groupId>org.primefaces.themes</groupId>
-            <artifactId>ui-lightness</artifactId>
+            <artifactId>all-themes</artifactId>
             <version>${primefaces.theme.version}</version>
         </dependency>
 
