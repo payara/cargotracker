@@ -22,7 +22,8 @@
         <maven.war-plugin.version>3.2.0</maven.war-plugin.version>
 
         <!-- Arquillian Dependencies -->
-        <arquillian.version>1.7.0.Alpha10</arquillian.version>
+        <arquillian.version>1.9.5.Final</arquillian.version>
+        <shrinkwrap.resolver.version>3.3.4</shrinkwrap.resolver.version>
 
         <!-- Primefaces Dependencies -->
         <primefaces.version>11.0.0</primefaces.version>
@@ -36,10 +37,13 @@
         <cargo.version>1.6.7</cargo.version>
         <java.ee.version>9.1.0</java.ee.version>
 
-        <payara.version>7.2024.1.Alpha2-SNAPSHOT</payara.version>
-        <data.source.class-name>org.h2.Driver</data.source.class-name> 
+        <payara.version>7.2025.1.Alpha2</payara.version>
+        <data.source.class-name>org.h2.Driver</data.source.class-name>
         <data.source.url>jdbc:h2:./tmp/cargo-tracker-database;AUTO_SERVER=TRUE</data.source.url>
         <payara.version.major>7</payara.version.major>
+        <unpackDir>${session.executionRootDirectory}/target</unpackDir>
+        <payara.home>${unpackDir}/payara7</payara.home>
+        <payara.arquillian.version>4.0.alpha2</payara.arquillian.version>
     </properties>
 
     <repositories>
@@ -88,7 +92,7 @@
     </repositories>
 
     <dependencyManagement>
-        <!-- Arquillian BOM used to reduce collision between testing dependecies. -->
+        <!-- Arquillian BOM used to reduce collision between testing dependencies. -->
         <dependencies>
             <dependency>
                 <groupId>org.jboss.arquillian</groupId>
@@ -164,6 +168,7 @@
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
             <artifactId>shrinkwrap-resolver-depchain</artifactId>
+            <version>${shrinkwrap.resolver.version}</version>
             <scope>test</scope>
             <type>pom</type>
         </dependency>
@@ -221,6 +226,33 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven.surefire.version}</version>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack</id>
+                        <phase>process-test-classes</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${unpackDir}</outputDirectory>
+                            <markersDirectory>${session.executionRootDirectory}/target/dependency-maven-plugin-markers
+                            </markersDirectory>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>fish.payara.distributions</groupId>
+                                    <artifactId>payara</artifactId>
+                                    <version>${payara.version}</version>
+                                    <type>zip</type>
+                                    <overWrite>false</overWrite>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
@@ -240,7 +272,8 @@
                 </dependency>
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>payara-client-ee9</artifactId>
+                    <artifactId>payara-client-ee11</artifactId>
+                    <version>${payara.arquillian.version}</version>
                 </dependency>
             </dependencies>
             <build>
@@ -291,7 +324,8 @@
 
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>payara-client-ee9</artifactId>
+                    <artifactId>payara-client-ee11</artifactId>
+                    <version>${payara.arquillian.version}</version>
                 </dependency>
             </dependencies>
 
@@ -331,11 +365,13 @@
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
                     <artifactId>arquillian-payara-server-managed</artifactId>
+                    <version>${payara.arquillian.version}</version>
                     <scope>test</scope>
                 </dependency>
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>payara-client-ee9</artifactId>
+                    <artifactId>payara-client-ee11</artifactId>
+                    <version>${payara.arquillian.version}</version>
                 </dependency>
             </dependencies>
 
@@ -353,7 +389,9 @@
                                 </goals>
                                 <configuration>
                                     <outputDirectory>${session.executionRootDirectory}/target</outputDirectory>
-                                    <markersDirectory>${session.executionRootDirectory}/target/dependency-maven-plugin-markers</markersDirectory>
+                                    <markersDirectory>
+                                        ${session.executionRootDirectory}/target/dependency-maven-plugin-markers
+                                    </markersDirectory>
                                     <artifactItems>
                                         <artifactItem>
                                             <groupId>fish.payara.distributions</groupId>
@@ -373,8 +411,9 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
                             <systemPropertyVariables>
-                                <payara.home>${session.executionRootDirectory}/target/${payara.directory.name}</payara.home>
                                 <arquillian.launch>payara</arquillian.launch>
+                                <payara.home>${payara.home}</payara.home>
+                                <my.admin.password>admin</my.admin.password>
                             </systemPropertyVariables>
                         </configuration>
                     </plugin>

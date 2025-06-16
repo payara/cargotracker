@@ -6,9 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import jakarta.annotation.ManagedBean;
-import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
+import jakarta.enterprise.context.SessionScoped;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
 
@@ -28,17 +27,17 @@ public class ChangeDestinationDialog implements Serializable {
         options.put("resizable", false);
         options.put("contentWidth", 360);
         options.put("contentHeight", 230);
-        
+
         Map<String, List<String>> params = new HashMap<>();
         List<String> values = new ArrayList<>();
         values.add(trackingId);
         params.put("trackingId", values);
         PrimeFaces.current().dialog().openDynamic("/admin/changeDestination.xhtml", options, params);
     }
-    
+
     public void handleReturn(SelectEvent event) {
     }
-    
+
     public void cancel() {
         // just kill the dialog
         PrimeFaces.current().dialog().closeDynamic("");

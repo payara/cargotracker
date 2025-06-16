@@ -12,3 +12,6 @@ nb-*.xml
 
 # VSCode
 .vscode/
+
+# IntelliJ
+.idea/
