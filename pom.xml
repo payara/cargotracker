@@ -121,6 +121,11 @@
 
         <!-- GlassFish specific dependencies, could go away in Java EE 8 -->
         <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-server</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-moxy</artifactId>
             <scope>provided</scope>
