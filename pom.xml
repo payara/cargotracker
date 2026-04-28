@@ -42,6 +42,8 @@
         <data.source.url>jdbc:h2:./tmp/cargo-tracker-database;AUTO_SERVER=TRUE</data.source.url>
         <unpackDir>${session.executionRootDirectory}/target</unpackDir>
         <payara.home>${unpackDir}/payara7</payara.home>
+
+        <skipTests>false</skipTests>
     </properties>
 
     <repositories>
@@ -348,6 +350,7 @@
                                     <goal>unpack</goal>
                                 </goals>
                                 <configuration>
+                                    <skip>${skipTests}</skip>
                                     <outputDirectory>${unpackDir}</outputDirectory>
                                     <markersDirectory>${session.executionRootDirectory}/target/dependency-maven-plugin-markers</markersDirectory>
                                     <artifactItems>
