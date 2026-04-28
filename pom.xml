@@ -40,7 +40,6 @@
         <payara.version>7.2025.1.Alpha2</payara.version>
         <data.source.class-name>org.h2.Driver</data.source.class-name>
         <data.source.url>jdbc:h2:./tmp/cargo-tracker-database;AUTO_SERVER=TRUE</data.source.url>
-        <payara.version.major>7</payara.version.major>
         <unpackDir>${session.executionRootDirectory}/target</unpackDir>
         <payara.home>${unpackDir}/payara7</payara.home>
         <payara.arquillian.version>4.0.alpha2</payara.arquillian.version>
