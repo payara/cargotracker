@@ -37,7 +37,7 @@
         <htmlunit.version>2.29</htmlunit.version>
         <cargo.version>1.6.7</cargo.version>
 
-        <payara.version>7.2025.1.Alpha2</payara.version>
+        <payara.version>7.2026.5-SNAPSHOT</payara.version>
         <data.source.class-name>org.h2.Driver</data.source.class-name>
         <data.source.url>jdbc:h2:./tmp/cargo-tracker-database;AUTO_SERVER=TRUE</data.source.url>
         <unpackDir>${session.executionRootDirectory}/target</unpackDir>
@@ -217,33 +217,6 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven.surefire.version}</version>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>unpack</id>
-                        <phase>process-test-classes</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${unpackDir}</outputDirectory>
-                            <markersDirectory>${session.executionRootDirectory}/target/dependency-maven-plugin-markers
-                            </markersDirectory>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>fish.payara.distributions</groupId>
-                                    <artifactId>payara</artifactId>
-                                    <version>${payara.version}</version>
-                                    <type>zip</type>
-                                    <overWrite>false</overWrite>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 
@@ -375,10 +348,8 @@
                                     <goal>unpack</goal>
                                 </goals>
                                 <configuration>
-                                    <outputDirectory>${session.executionRootDirectory}/target</outputDirectory>
-                                    <markersDirectory>
-                                        ${session.executionRootDirectory}/target/dependency-maven-plugin-markers
-                                    </markersDirectory>
+                                    <outputDirectory>${unpackDir}</outputDirectory>
+                                    <markersDirectory>${session.executionRootDirectory}/target/dependency-maven-plugin-markers</markersDirectory>
                                     <artifactItems>
                                         <artifactItem>
                                             <groupId>fish.payara.distributions</groupId>
@@ -386,7 +357,6 @@
                                             <version>${payara.version}</version>
                                             <type>zip</type>
                                             <overWrite>false</overWrite>
-                                            <outputDirectory>${session.executionRootDirectory}/target</outputDirectory>
                                         </artifactItem>
                                     </artifactItems>
                                 </configuration>
