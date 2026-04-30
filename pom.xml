@@ -14,16 +14,15 @@
     <properties>
         <!-- Maven Dependencies -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <maven.surefire.version>2.22.0</maven.surefire.version>
-        <maven.compiler-plugin.version>3.7.0</maven.compiler-plugin.version>
-        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
-        <maven.war-plugin.version>3.2.0</maven.war-plugin.version>
+        <maven.compiler.release>21</maven.compiler.release>
+        <maven.surefire.version>3.5.5</maven.surefire.version>
+        <maven.compiler-plugin.version>3.15.0</maven.compiler-plugin.version>
+        <maven.war-plugin.version>3.5.1</maven.war-plugin.version>
 
         <!-- Arquillian Dependencies -->
-        <arquillian.version>1.9.5.Final</arquillian.version>
-        <shrinkwrap.resolver.version>3.3.4</shrinkwrap.resolver.version>
+        <arquillian.version>1.10.1.Final</arquillian.version>
+        <shrinkwrap.resolver.version>3.3.6</shrinkwrap.resolver.version>
+        <hamcrest.version>3.0</hamcrest.version>
 
         <!-- Primefaces Dependencies -->
         <primefaces.version>11.0.0</primefaces.version>
@@ -35,22 +34,47 @@
         <selenium.htmlunit-driver.version>2.52.0</selenium.htmlunit-driver.version>
         <htmlunit.version>2.29</htmlunit.version>
         <cargo.version>1.6.7</cargo.version>
-        <java.ee.version>9.1.0</java.ee.version>
+        <slf4j.version>2.0.17</slf4j.version>
 
-        <payara.version>7.2025.1.Alpha2</payara.version>
+        <payara.version>7.2026.5-SNAPSHOT</payara.version>
         <data.source.class-name>org.h2.Driver</data.source.class-name>
         <data.source.url>jdbc:h2:./tmp/cargo-tracker-database;AUTO_SERVER=TRUE</data.source.url>
-        <payara.version.major>7</payara.version.major>
         <unpackDir>${session.executionRootDirectory}/target</unpackDir>
         <payara.home>${unpackDir}/payara7</payara.home>
-        <payara.arquillian.version>4.0.alpha2</payara.arquillian.version>
+
+        <skipTests>false</skipTests>
+
+        <payara-nexus-staging.repo.releases.enabled>false</payara-nexus-staging.repo.releases.enabled>
+        <payara-nexus-staging.repo.snapshots.enabled>false</payara-nexus-staging.repo.snapshots.enabled>
     </properties>
 
     <repositories>
+        <!-- Try Maven central first, not last, which happens when omitted here -->
+        <repository>
+            <id>central</id>
+            <name>Central Repository</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>ossrh-snapshots</id>
+            <name>Sonatype OSSRH Snapshot Repository</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
         <repository>
             <id>payara-nexus-artifacts</id>
-            <name>Payara Artifacts</name>
-            <url>https://nexus.dev.payara.fish/repository/payara-artifacts/</url>
+            <url>https://nexus.dev.payara.fish/repository/payara-artifacts</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -58,11 +82,39 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
-
+        <repository>
+            <id>payara-nexus-enterprise-artifacts</id>
+            <url>https://nexus.dev.payara.fish/repository/payara-enterprise-artifacts-private</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>payara-nexus-enterprise-distributions</id>
+            <url>https://nexus.dev.payara.fish/repository/payara-enterprise</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>payara-nexus-enterprise-snapshots</id>
+            <url>https://nexus.dev.payara.fish/repository/payara-enterprise-snapshots-private</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
         <repository>
             <id>payara-nexus-snapshots</id>
-            <name>Payara Snapshots</name>
-            <url>https://nexus.dev.payara.fish/repository/payara-snapshots/</url>
+            <url>https://nexus.dev.payara.fish/repository/payara-snapshots</url>
             <releases>
                 <enabled>false</enabled>
             </releases>
@@ -70,13 +122,73 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
-
-        <!-- PF themes are in their repo -->
         <repository>
-            <id>primefaces</id>
-            <url>https://repository.primefaces.org</url>
+            <id>payara-nexus-staging</id>
+            <url>https://nexus.dev.payara.fish/repository/payara-staging</url>
+            <releases>
+                <enabled>${payara-nexus-staging.repo.releases.enabled}</enabled>
+            </releases>
+            <snapshots>
+                <enabled>${payara-nexus-staging.repo.snapshots.enabled}</enabled>
+            </snapshots>
         </repository>
     </repositories>
+
+    <pluginRepositories>
+        <!-- Try Maven central first, not last, which happens when omitted here -->
+        <pluginRepository>
+            <id>central</id>
+            <name>Central Repository</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>ossrh-snapshots</id>
+            <name>Sonatype OSSRH Snapshot Repository</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>payara-nexus-artifacts</id>
+            <url>https://nexus.dev.payara.fish/repository/payara-artifacts</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>payara-nexus-snapshots</id>
+            <url>https://nexus.dev.payara.fish/repository/payara-snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>payara-nexus-staging</id>
+            <url>https://nexus.dev.payara.fish/repository/payara-staging</url>
+            <releases>
+                <enabled>${payara-nexus-staging.repo.releases.enabled}</enabled>
+            </releases>
+            <snapshots>
+                <enabled>${payara-nexus-staging.repo.snapshots.enabled}</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 
     <dependencyManagement>
         <!-- Arquillian BOM used to reduce collision between testing dependencies. -->
@@ -122,7 +234,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.6</version>
+            <version>3.20.0</version>
             <scope>compile</scope>
         </dependency>
 
@@ -160,12 +272,15 @@
             <type>pom</type>
         </dependency>
         <dependency>
-            <groupId>jakarta.xml.bind</groupId>
-            <artifactId>jakarta.xml.bind-api</artifactId>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest</artifactId>
+            <version>${hamcrest.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>jakarta.activation</groupId>
-            <artifactId>jakarta.activation-api</artifactId>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j.version}</version>
         </dependency>
     </dependencies>
 
@@ -177,11 +292,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven.compiler-plugin.version}</version>
                 <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                    <compilerArguments>
-                        <endorseddirs>${endorsed.dir}</endorseddirs>
-                    </compilerArguments>
+                    <release>${maven.compiler.release}</release>
                 </configuration>
             </plugin>
             <plugin>
@@ -213,33 +324,6 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven.surefire.version}</version>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>unpack</id>
-                        <phase>process-test-classes</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${unpackDir}</outputDirectory>
-                            <markersDirectory>${session.executionRootDirectory}/target/dependency-maven-plugin-markers
-                            </markersDirectory>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>fish.payara.distributions</groupId>
-                                    <artifactId>payara</artifactId>
-                                    <version>${payara.version}</version>
-                                    <type>zip</type>
-                                    <overWrite>false</overWrite>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 
@@ -260,7 +344,6 @@
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
                     <artifactId>payara-client-ee11</artifactId>
-                    <version>${payara.arquillian.version}</version>
                 </dependency>
             </dependencies>
             <build>
@@ -312,7 +395,6 @@
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
                     <artifactId>payara-client-ee11</artifactId>
-                    <version>${payara.arquillian.version}</version>
                 </dependency>
             </dependencies>
 
@@ -352,13 +434,11 @@
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
                     <artifactId>arquillian-payara-server-managed</artifactId>
-                    <version>${payara.arquillian.version}</version>
                     <scope>test</scope>
                 </dependency>
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
                     <artifactId>payara-client-ee11</artifactId>
-                    <version>${payara.arquillian.version}</version>
                 </dependency>
             </dependencies>
 
@@ -375,10 +455,9 @@
                                     <goal>unpack</goal>
                                 </goals>
                                 <configuration>
-                                    <outputDirectory>${session.executionRootDirectory}/target</outputDirectory>
-                                    <markersDirectory>
-                                        ${session.executionRootDirectory}/target/dependency-maven-plugin-markers
-                                    </markersDirectory>
+                                    <skip>${skipTests}</skip>
+                                    <outputDirectory>${unpackDir}</outputDirectory>
+                                    <markersDirectory>${session.executionRootDirectory}/target/dependency-maven-plugin-markers</markersDirectory>
                                     <artifactItems>
                                         <artifactItem>
                                             <groupId>fish.payara.distributions</groupId>
@@ -386,7 +465,6 @@
                                             <version>${payara.version}</version>
                                             <type>zip</type>
                                             <overWrite>false</overWrite>
-                                            <outputDirectory>${session.executionRootDirectory}/target</outputDirectory>
                                         </artifactItem>
                                     </artifactItems>
                                 </configuration>
@@ -406,6 +484,14 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+
+        <profile>
+            <id>payara-nexus-staging</id>
+            <properties>
+                <payara-nexus-staging.repo.releases.enabled>true</payara-nexus-staging.repo.releases.enabled>
+                <payara-nexus-staging.repo.snapshots.enabled>true</payara-nexus-staging.repo.snapshots.enabled>
+            </properties>
         </profile>
     </profiles>
 
