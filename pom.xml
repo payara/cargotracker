@@ -36,7 +36,7 @@
         <cargo.version>1.6.7</cargo.version>
         <slf4j.version>2.0.17</slf4j.version>
 
-        <payara.version>7.2026.5-SNAPSHOT</payara.version>
+        <payara.version>7.2026.7-SNAPSHOT</payara.version>
         <data.source.class-name>org.h2.Driver</data.source.class-name>
         <data.source.url>jdbc:h2:./tmp/cargo-tracker-database;AUTO_SERVER=TRUE</data.source.url>
         <unpackDir>${session.executionRootDirectory}/target</unpackDir>
@@ -227,6 +227,11 @@
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-moxy</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>org.eclipse.persistence.core</artifactId>
             <scope>provided</scope>
         </dependency>
 
